@@ -1,5 +1,5 @@
 /*
- * Copyright 2008-2015 the original author or authors.
+ * Copyright 2008-2016 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -280,19 +280,15 @@ public abstract class JpaQueryExecution {
 
 	/**
 	 * {@link Execution} performing an exists check on the query.
+	 *
+	 * @author Mark Paluch
+	 * @since 1.11
 	 */
 	static class ExistsExecution extends JpaQueryExecution {
 
 		@Override
 		protected Object doExecute(AbstractJpaQuery query, Object[] values) {
-
-			Object result = query.createQuery(values).getSingleResult();
-
-			if(result instanceof Number) {
-				return ((Number) result).longValue() != 0;
-			}
-
-			return result;
+			return !query.createQuery(values).getResultList().isEmpty();
 		}
 	}
 

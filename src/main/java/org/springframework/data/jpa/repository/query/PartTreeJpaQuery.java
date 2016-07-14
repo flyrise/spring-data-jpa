@@ -67,7 +67,7 @@ public class PartTreeJpaQuery extends AbstractJpaQuery {
 		boolean recreationRequired = parameters.hasDynamicProjection() || parameters.potentiallySortsDynamically();
 
 		this.countQuery = new CountQueryPreparer(persistenceProvider, recreationRequired);
-		this.query = (tree.isCountProjection() || tree.isExistsProjection()) ? countQuery : new QueryPreparer(persistenceProvider, recreationRequired);
+		this.query = tree.isCountProjection() ? countQuery : new QueryPreparer(persistenceProvider, recreationRequired);
 	}
 
 	/*
@@ -174,6 +174,10 @@ public class PartTreeJpaQuery extends AbstractJpaQuery {
 				}
 
 				query.setMaxResults(tree.getMaxResults());
+			}
+
+			if(tree.isExistsProjection()) {
+				query.setMaxResults(1);
 			}
 
 			return query;
