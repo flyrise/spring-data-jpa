@@ -20,6 +20,10 @@ import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.ManyToOne;
 
+/**
+ * @author Thomas Darimont
+ * @author Mark Paluch
+ */
 @IdClass(IdClassExampleEmployeePK.class)
 @Entity
 public class IdClassExampleEmployee {
